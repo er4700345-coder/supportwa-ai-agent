@@ -1,0 +1,5 @@
+Welcome to our support. We handle billing, technical issues, and account queries.
+Common answers:
+- Reset password: Use forgot password link.
+- Billing: Check your invoice in dashboard.
+Escalate for complex issues.
