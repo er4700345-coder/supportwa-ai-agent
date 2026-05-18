@@ -1,2 +1,14 @@
-# supportwa-ai-agent
-Production-style WhatsApp AI Support Agent on OpenWA. Customer support only. No spam tools.
+# SupportWA
+
+WhatsApp AI Support Agent.
+
+## Quick Start
+```bash
+docker-compose up --build
+```
+
+## OpenWA Setup
+Configure webhook to /webhooks/openwa
+
+## Safety
+Customer support only.
