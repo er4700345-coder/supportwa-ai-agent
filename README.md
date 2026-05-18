@@ -1,51 +1,41 @@
-# SupportWA AI Agent
+# SupportWA AI Agent (Hardened MVP)
 
-Production WhatsApp AI Support on OpenWA.
+Clean, safe WhatsApp customer support on OpenWA.
 
-## Architecture
-Customer WhatsApp → OpenWA → SupportWA (webhook) → AI Engine → OpenWA send → Customer
+## OpenWA (Choose)
+**Local:** `git clone https://github.com/rmyndharis/OpenWA.git && cd OpenWA && npm install && npm run dev` (ports 2886/2785)
+**Docker:** `docker compose up -d`
 
-## OpenWA Setup (Choose One)
-
-### Option 1: Local (Recommended for Dev)
-```bash
-git clone https://github.com/rmyndharis/OpenWA.git
-cd OpenWA
-npm install
-npm run dev
-```
-- Dashboard: http://localhost:2886
-- API: http://localhost:2785/api
-- Webhook target: http://your-supportwa:4000/webhooks/openwa
-
-### Option 2: Docker
-```bash
-docker compose up -d
-```
-Same ports. Ensure SupportWA can reach http://localhost:2785/api
-
-## SupportWA Setup
+## SupportWA
 ```bash
 git clone https://github.com/er4700345-coder/supportwa-ai-agent.git
 cd supportwa-ai-agent
 cp .env.example .env
-# Edit OPENWA_API_URL and AI_API_KEY
+# Set OPENWA_API_URL=http://localhost:2785/api
+# AI_API_KEY=sk-... (optional for real LLM)
 docker-compose up --build
+# or local: npm install && npm run dev
 ```
 
-## Config (.env)
+## Native Deps (better-sqlite3)
+`apk add python3 make g++` or `sudo apt install python3 make g++` before npm install.
+
+## Config
 OPENWA_API_URL=http://localhost:2785/api
-AI_PROVIDER=openai
-AI_API_KEY=sk-...
-DATABASE_URL=sqlite:./supportwa.db  # or postgres
-PORT=4000
+AI_API_KEY=sk-...          # real OpenAI-compatible
+AI_BASE_URL=https://api.openai.com/v1
+AI_MODEL=gpt-4o-mini
 
-## MVP Features
-- Webhook receive + AI reply
-- Conversation store (SQLite/Postgres)
-- Escalation to human
-- Admin dashboard (http://localhost:4000/admin)
-- Health checks
+## Guards
+- Inbound only
+- No broadcast
+- Size limit + escalation log (no spam)
+- Flexible webhook payload
 
-## Safety
-Customer support only. No mass messaging.
+## Smoke/Test
+`npm test` (requires running server on 4000)
+
+## Endpoints
+/health | /webhooks/openwa | /admin | /api/conversations
+
+Safety: Customer support only.
