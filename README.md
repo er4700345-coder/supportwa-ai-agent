@@ -1,14 +1,14 @@
-# SupportWA (v0.4 - Real AI Provider)
+# SupportWA v0.5 - Production Hardened
 
-## AI Provider
-- OpenAI-compatible /chat/completions
-- Env: AI_API_KEY, AI_BASE_URL, AI_MODEL
-- 8s timeout, 2 retries + backoff
-- Safe stub fallback (no key) + error fallback + escalate
-- Structured logs: [AI] provider call / success / error (no secrets)
+## Production Features
+- Structured JSON logs (request IDs, events, no secrets)
+- /metrics (inbound/outbound/escalations/fallbacks/errors/uptime)
+- Per-contact rate limit (10/min)
+- Enhanced /health (DB, OpenWA, AI status, uptime)
+- Centralized error middleware (clean JSON, no stacks)
 
 ## Smoke
-npm test (requires server)
+npm test
 
 ## Run
-Same as before. Docker/local unchanged.
+Docker/local unchanged. Safe for production customer support.
